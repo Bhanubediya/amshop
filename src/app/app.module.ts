@@ -15,7 +15,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { CheckoutProductsComponent } from './components/checkout-products/checkout-products.component';
-
+import { MatCommonModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ToastrModule } from 'ngx-toastr';
 import { FilterPipe } from './shared/filter.pipe';
@@ -53,6 +55,9 @@ AdminPanelComponent
     NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatCommonModule,
 
     HttpClientModule,
     ToastrModule.forRoot({
