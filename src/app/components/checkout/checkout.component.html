@@ -12,7 +12,7 @@
         
         <div class="width50 padright">
           <label for="firstname">First Name</label>
-          <input type="text"    id="firstname"  placeholder="Enter your first name"  required formControlName="firstname">
+          <input type="text"    id="firstname"  placeholder="Enter your first name"  required [formControl]="firstname"/>
           <mat-error *ngIf="!checkoutForm.get('firstname')?.errors?.['required'] && (checkoutForm.get('firstname')?.errors?.['pattern'])">
             Please enter a first name
           </mat-error>
@@ -23,7 +23,7 @@
         </div>
         <div class="width50 padright">
           <label for="lastname">Last Name</label>
-          <input type="text"   id="lastname" class="form-control"   placeholder="Enter your last name" required formControlName="lastname">
+          <input type="text"   id="lastname" class="form-control"   placeholder="Enter your last name" required [formControl]="lastname"/>
          
           <mat-error *ngIf="!checkoutForm.get('lastname')?.errors?.['required'] && (checkoutForm.get('lastname')?.errors?.['pattern'])">
             Please enter a Last name
@@ -37,7 +37,7 @@
 
         <div class="width80 padright">
           <label for="address">Address</label>
-        <input type="text"  id="address"  placeholder="Enter your address" required formControlName="address">
+        <input type="text"  id="address"  placeholder="Enter your address" required [formControl]="address"/>
        
         <mat-error *ngIf="!checkoutForm.get('address')?.errors?.['required'] && (checkoutForm.get('address')?.errors?.['pattern'])">
           Please enter a Address
@@ -51,7 +51,7 @@
       
         <div class="width50 padright">
         <label for="city"> City</label>
-        <input type="text"  id="city"  placeholder="Enter your city" required formControlName="city">
+        <input type="text"  id="city"  placeholder="Enter your city" required [formControl]="city"/>
         
         <mat-error *ngIf="!checkoutForm.get('city')?.errors?.['required'] && (checkoutForm.get('city')?.errors?.['pattern'])">
           Please enter a City
@@ -65,7 +65,7 @@
           
         <div class="width50 padright">
           <label for="province">State</label>
-          <input type="text"  id="state"  placeholder="Enter your state" required formControlName="state">
+          <input type="text"  id="state"  placeholder="Enter your state" required [formControl]="state"/>
          
         <mat-error *ngIf="!checkoutForm.get('state')?.errors?.['required'] && (checkoutForm.get('state')?.errors?.['pattern'])">
           Please enter a State
@@ -82,7 +82,7 @@
 
         <div class="width50 padright">
           <label for="postcode">Postcode</label>
-          <input type="text" name="postcode" id="postcode"  placeholder=" Enter a postcode" required formControlName="postcode">
+          <input type="text" name="postcode" id="postcode"  placeholder=" Enter a postcode" required [formControl]="postcode"/>
          
           <mat-error *ngIf="!checkoutForm.get('postcode')?.errors?.['required'] && (checkoutForm.get('postcode')?.errors?.['pattern'])">
             Please enter a Postcode
@@ -94,7 +94,7 @@
 
         <div class="width50 padright">
           <label for="mobileno">Mobile no</label>
-          <input type="text" name="mobileno" id="mobileno"  placeholder=" Enter a mobileno" required formControlName="mobileno">
+          <input type="text" name="mobileno" id="mobileno"  placeholder=" Enter a mobileno" required [formControl]="mobileno"/>
          
           <mat-error *ngIf="!checkoutForm.get('mobileno')?.errors?.['required'] && (checkoutForm.get('mobileno')?.errors?.['pattern'])">
             Please enter a Mobile No
@@ -107,7 +107,7 @@
       </div>
         <div class="width 40 padright ">
           <label for="emailaddress">Email Address</label>
-          <input type="text" name="emailaddress" id="emailaddress"  placeholder=" Enter a Email-Id" required formControlName="emailaddress">
+          <input type="text" name="emailaddress" id="emailaddress"  placeholder=" Enter a Email-Id" required [formControl]="emailaddress"/>
          
           <mat-error *ngIf="!checkoutForm.get('emailaddress')?.errors?.['required'] && (checkoutForm.get('emailaddress')?.errors?.['pattern'])">
             Please enter a Email Address
@@ -117,7 +117,7 @@
             </mat-error>
         </div>
         <label for="ordernotes" >Order Notes</label>
-        <textarea name="ordernotes"   id="ordernotes" placeholder="Notes about your order, e.g. special notes for delivery. "formControlName="ordernotes"></textarea>
+        <textarea name="ordernotes"   id="ordernotes" placeholder="Notes about your order, e.g. special notes for delivery. "[formControl]="ordernotes"></textarea>
         <mat-error *ngIf="!checkoutForm.get('')?.errors?.['required'] && (checkoutForm.get('ordernotes')?.errors?.['pattern'])">
           Please enter a your message for us
         </mat-error>
@@ -138,12 +138,12 @@
           
         </div>
 
-        <div class="row">
+        <div>
           <h4 >Product Total</h4>
         </div>
 
         <div>
-          <p class="prod-description inline"><div class="qty inline"><span class="smalltxt">x</span>{{totalItem}}</div>
+          <p class="prod-description inline"><div class="qty inline"><span class="smalltxt">x</span>{{totalItem}}<br/></div>
 
         </div>
 
@@ -171,9 +171,11 @@
 
 
 <p><button type="button"   (click)="paynow()" >Proceed to payment</button></p>
-<p><button  class="btn btn-info btn-lg btn-block" type="submit"   (Click)="save()" [disabled]="!checkoutForm.valid" >Save Data</button></p>
+<!--p><button  class="btn btn-info btn-lg btn-block" type="submit"   (Click)="save()" [disabled]="!checkoutForm.valid" >Save Data</button></p-->
+<p>
+  <button type="button" (click)="saveData()">Save Data</button>
+</p>
 
- 
 
 <!-- <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button> -->
 <!-- <fieldset class="paymenttypes">

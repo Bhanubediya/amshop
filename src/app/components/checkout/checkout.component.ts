@@ -12,6 +12,8 @@ import { IProduct } from 'src/app/iproduct';
 
 
 declare var Razorpay:any;
+
+@Inject(CheckoutService)
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -32,7 +34,7 @@ export class CheckoutComponent implements OnInit {
    mobileno:FormControl = new FormControl();
    emailaddress:FormControl = new FormControl();
    ordernotes:FormControl = new FormControl();
-   title:FormControl= new FormControl();
+  //  title:FormControl= new FormControl();
    
    customerForm = new FormGroup({
 
@@ -45,7 +47,7 @@ export class CheckoutComponent implements OnInit {
     mobileno : new FormControl(""),
     emailaddress : new FormControl(""),
     ordernotes : new FormControl(""),
-    title : new FormControl(""),
+    // title : new FormControl(""),
 
   })
 
@@ -53,7 +55,7 @@ export class CheckoutComponent implements OnInit {
   public grandTotal!:number;
   public totalItem: number=0;
   public titlename:IProduct[]=[];
-  
+  billingdetails!:iCustomer[];
   public shopedmore:boolean=false;
   checkoutForm: FormGroup;
   submitted = false;
@@ -66,7 +68,7 @@ export class CheckoutComponent implements OnInit {
  
 
 
-  constructor(private cartService: CartService,private toastr:ToastrService , public service:CheckoutService,
+  constructor(private cartService: CartService,private toastr:ToastrService , private checkoutservice:CheckoutService,
     private formBuilder: FormBuilder,
     private http: HttpClient) 
   { 
@@ -89,7 +91,7 @@ export class CheckoutComponent implements OnInit {
   }
   get f() { return this.checkoutForm.controls; }
 
-  ngOnInit(){
+  ngOnInit():void{
 
     this.cartService.getProducts()
     .subscribe(res=>{
@@ -106,7 +108,7 @@ export class CheckoutComponent implements OnInit {
     this.product=res;
   })
  
-  
+  this.checkoutservice.getAllCustomers().subscribe(data=> this.billingdetails = data);
   
   if(this.grandTotal>5000){
   this.shopedmore=true;
@@ -166,25 +168,6 @@ options = {
 
   
 
-save(){
-  let customer:iCustomer = {
-    firstname: this.firstname.value,
-    lastname: this.lastname.value,
-    address: this.address.value,
-    city: this.city.value,
-    state: this.state.value,
-    postcode: parseInt(this.postcode.value),
-    mobileno: parseInt(this.mobileno.value),
-    emailaddress: this.emailaddress.value,
-    ordernotes: this.ordernotes.value,
-    title: this.title.value,
-    
-  };
-
-  this.checkoutInfoService.AddCustomer(customer);
-  alert("Customer added succesfully");
-  this.checkoutInfoService.getData();
-}
 
 paynow() {
   this.paymentId = '';
@@ -222,6 +205,27 @@ onPaymentSuccess(event: any): void {
   this.message = "Success Payment";
 }
 
+saveData(){
+  let customer:iCustomer = {
+    firstname: this.firstname.value,
+    lastname: this.lastname.value,
+    address: this.address.value,
+    city: this.city.value,
+    state: this.state.value,
+    postcode: parseInt(this.postcode.value),
+    mobileno: parseInt(this.mobileno.value),
+    emailaddress: this.emailaddress.value,
+    ordernotes: this.ordernotes.value,
+    // products:{
+    // title: this.title.value,
+    // }
+  
+  };
+
+  this.checkoutservice.addCustomer(customer);
+  alert("Customer added succesfully");
+  this.checkoutInfoService.getData();
+}
 
 
 

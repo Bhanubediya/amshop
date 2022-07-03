@@ -15,7 +15,9 @@ const routes: Routes = [
   {
   path: '',component: HomeComponent
   },
-
+  {
+    path:"add-customer",component:CheckoutComponent
+  },
 
   {
     path: 'checkout-products', component:CheckoutProductsComponent

@@ -31,6 +31,7 @@ import { CheckoutService } from './services/checkout.service';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +46,7 @@ import { CheckoutService } from './services/checkout.service';
 FilterPipe,
 WishlistComponent,
 AdminPanelComponent,
+
 
   ],
   imports: [

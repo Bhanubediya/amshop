@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map,Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { iCustomer } from '../icustomer';
 
 
@@ -9,18 +9,20 @@ import { iCustomer } from '../icustomer';
   providedIn: 'root'
 })
 export class CheckoutService {
-  
-  url="https://localhost:5001/api"
 
-  constructor(private http:HttpClient) { }
-  getData():Observable<iCustomer[]>{
-    return this.http.get<iCustomer[]>(this.url+'/BillingDetails');
+  constructor(private httpclient:HttpClient) { }
+  getAllCustomers():Observable<iCustomer[]>{
+    return this.httpclient.get<iCustomer[]>("https://localhost:44386/api/BillingDetails",
+    {
+      headers:{"Access-Control-Allow-Origin":"*"}
+    });
+    
   }
 
   
-  addCustomers(val : iCustomer)
+  addCustomer(Data : iCustomer)
   {
-    this.http.post<iCustomer>("https://localhost:5001/api/BillingDetails",val,{
+    this.httpclient.post<iCustomer>("https://localhost:44386/api/BillingDetails",Data,{
       headers : {
         "Access-Control-Allow-Origin" : "*"
        
@@ -31,9 +33,6 @@ export class CheckoutService {
 
 
 
-  deleteCustomer(val:any){
-    return this.http.delete(this.url+'/BillingDetails/'+val)
-  }
 
 
 
