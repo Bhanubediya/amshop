@@ -39,9 +39,7 @@ export class ProductService {
   }
 
 
-      addAddress(val:any){
-        return this.http.post(this.url+'/BillingDetails',val)
-      }
+    
 
   }
 

@@ -26,6 +26,8 @@ import { ProductService } from './services/product.service';
 import { WishlistService } from './services/wishlist.service';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { CheckoutService } from './services/checkout.service';
+
 
 
 
@@ -42,7 +44,7 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
     ThankyouComponent,
 FilterPipe,
 WishlistComponent,
-AdminPanelComponent
+AdminPanelComponent,
 
   ],
   imports: [
@@ -67,7 +69,7 @@ AdminPanelComponent
       positionClass:'toast-bottom-right'
         })
   ],
-  providers: [ProductService,WishlistService],
+  providers: [ProductService,WishlistService,CheckoutService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,10 +1,13 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { HttpClient ,HttpHeaders} from '@angular/common/http';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import {  FormBuilder, FormControl,FormGroup,NgForm,Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { iCustomer } from 'src/app/icustomer';
+
 import { CartService } from 'src/app/services/cart.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
+
+import { IProduct } from 'src/app/iproduct';
 
 
 
@@ -15,10 +18,9 @@ declare var Razorpay:any;
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
- 
-  
   formValue !: FormGroup;
   checkoutData !: any;
+  actionBtn : string = "Save";
 
   
    firstname:FormControl = new FormControl();
@@ -30,24 +32,43 @@ export class CheckoutComponent implements OnInit {
    mobileno:FormControl = new FormControl();
    emailaddress:FormControl = new FormControl();
    ordernotes:FormControl = new FormControl();
-   productid:FormControl= new FormControl();
-   quantity:FormControl=new FormControl()
+   title:FormControl= new FormControl();
    
+   customerForm = new FormGroup({
+
+    firstname : new FormControl(""),
+    lastname : new FormControl(""),
+    address : new FormControl(""),
+    city: new FormControl(""),
+    state : new FormControl(""),
+    postcode : new FormControl(""),
+    mobileno : new FormControl(""),
+    emailaddress : new FormControl(""),
+    ordernotes : new FormControl(""),
+    title : new FormControl(""),
+
+  })
 
   public product:any=[];
   public grandTotal!:number;
   public totalItem: number=0;
+  public titlename:IProduct[]=[];
+  
   public shopedmore:boolean=false;
   checkoutForm: FormGroup;
   submitted = false;
   checkoutInfoService: any;
+  BillingDetailService: any;
+  
  
  
  
  
 
 
-  constructor(private cartService: CartService,private toastr:ToastrService ,private formBuilder: FormBuilder,private router:Router,private service:CheckoutService) 
+  constructor(private cartService: CartService,private toastr:ToastrService , public service:CheckoutService,
+    private formBuilder: FormBuilder,
+    private http: HttpClient) 
   { 
      
     this.checkoutForm=this.formBuilder.group({
@@ -68,7 +89,7 @@ export class CheckoutComponent implements OnInit {
   }
   get f() { return this.checkoutForm.controls; }
 
-  ngOnInit() {
+  ngOnInit(){
 
     this.cartService.getProducts()
     .subscribe(res=>{
@@ -79,7 +100,12 @@ export class CheckoutComponent implements OnInit {
     .subscribe(res=>{
     this.totalItem = res.length;
   })
-
+  
+  this.cartService.getProducts()  
+  .subscribe(res=>{
+    this.product=res;
+  })
+ 
   
   
   if(this.grandTotal>5000){
@@ -135,24 +161,29 @@ options = {
   }
 };
 
-save(){
-  let checkout:iCustomer = {
 
-    firstname:this.firstname.value,
-    lastname:this.lastname.value,
-    address:this.address.value,
-    city:this.city.value,
-    state:this.state.value,
-    postcode:parseInt(this.postcode.value),
-    mobileno:parseInt(this.mobileno.value),
-    emailaddress:this.emailaddress.value,
-    ordernotes:this.ordernotes.value,
-    productid:this.productid.value,
-    quantity:this.quantity.value
+    
+
+  
+
+save(){
+  let customer:iCustomer = {
+    firstname: this.firstname.value,
+    lastname: this.lastname.value,
+    address: this.address.value,
+    city: this.city.value,
+    state: this.state.value,
+    postcode: parseInt(this.postcode.value),
+    mobileno: parseInt(this.mobileno.value),
+    emailaddress: this.emailaddress.value,
+    ordernotes: this.ordernotes.value,
+    title: this.title.value,
+    
   };
 
-  this.checkoutInfoService.AddCustomer(checkout);
-
+  this.checkoutInfoService.AddCustomer(customer);
+  alert("Customer added succesfully");
+  this.checkoutInfoService.getData();
 }
 
 paynow() {
@@ -201,14 +232,33 @@ onSubmit(){
   //   console.log(this.checkoutForm.value);
   // }
 
-}
- onCheckout(product:iCustomer){
- this.service.addCustomer(product)
- }
+  // onSubmit(form:NgForm){
+  //   this.service.addCustomers(
+  //     (     res: any) => {
 
+  //    },
+  //     (     err: any)=>console.log(err);
+  //   );
 
-
+    
+     
+    
+    
+    
   }
+
+}
+
+//onCheckout(product:iCustomer){
+//  this.service.addCustomers(product)
+//  }
+
+
+
+
+  
+
+
 
 
 

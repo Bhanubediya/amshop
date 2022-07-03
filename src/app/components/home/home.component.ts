@@ -141,7 +141,4 @@ product.addedtowishlist=false;
 
 
 
-function input() {
-  throw new Error('Function not implemented.');
-}
 

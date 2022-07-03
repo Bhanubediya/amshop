@@ -9,7 +9,9 @@ export interface iCustomer {
     mobileno :number,
     emailaddress :string,
     ordernotes :string,
-    productid :number,
-    quantity :number
+    title:string,
+    
+
+    
     
 }
