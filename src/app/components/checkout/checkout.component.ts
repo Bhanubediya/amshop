@@ -34,7 +34,7 @@ export class CheckoutComponent implements OnInit {
    mobileno:FormControl = new FormControl();
    emailaddress:FormControl = new FormControl();
    ordernotes:FormControl = new FormControl();
-  //  title:FormControl= new FormControl();
+   title:FormControl= new FormControl();
    
    customerForm = new FormGroup({
 
@@ -47,7 +47,7 @@ export class CheckoutComponent implements OnInit {
     mobileno : new FormControl(""),
     emailaddress : new FormControl(""),
     ordernotes : new FormControl(""),
-    // title : new FormControl(""),
+    title : new FormControl(""),
 
   })
 
@@ -213,18 +213,20 @@ saveData(){
     city: this.city.value,
     state: this.state.value,
     postcode: parseInt(this.postcode.value),
-    mobileno: parseInt(this.mobileno.value),
+    mobileno: this.mobileno.value,
     emailaddress: this.emailaddress.value,
     ordernotes: this.ordernotes.value,
-    // products:{
-    // title: this.title.value,
-    // }
-  
+    
+    
   };
-
+  console.log(customer);
   this.checkoutservice.addCustomer(customer);
   alert("Customer added succesfully");
-  this.checkoutInfoService.getData();
+  //this.checkoutInfoService.getData();
+
+
+
+  
 }
 
 

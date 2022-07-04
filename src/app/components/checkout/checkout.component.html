@@ -3,8 +3,8 @@
 <div class="wrapper">
 
   <div class="row">
-    <form novalidate #form="ngForm" method="post" [formGroup]="checkoutForm">
-      <input  type="hidden" name="billingid" value="service.formData.billingid">
+    <form  method="post" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+     
       <div class="col-7 col">
         <h3 class="topborder"><span>Billing Details</span></h3>
        
@@ -171,11 +171,11 @@
 
 
 <p><button type="button"   (click)="paynow()" >Proceed to payment</button></p>
-<!--p><button  class="btn btn-info btn-lg btn-block" type="submit"   (Click)="save()" [disabled]="!checkoutForm.valid" >Save Data</button></p-->
+
 <p>
   <button type="button" (click)="saveData()">Save Data</button>
 </p>
-
+  
 
 <!-- <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button> -->
 <!-- <fieldset class="paymenttypes">

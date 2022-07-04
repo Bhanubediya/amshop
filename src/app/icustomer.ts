@@ -6,14 +6,8 @@ export interface iCustomer {
     city :string,
     state :string,
     postcode :number,
-    mobileno :number,
+    mobileno :string,
     emailaddress :string,
     ordernotes :string,
-    // products:{
-    // title?:string,
-    // }
-    
-
-    
     
 }

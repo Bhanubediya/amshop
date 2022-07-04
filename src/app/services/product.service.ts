@@ -8,7 +8,7 @@ import { WishListAPI } from '../wishlistAPI';
   providedIn: 'root'
 })
 export class ProductService {
-   url="https://localhost:44386/api"
+   url="https://localhost:5001/api"
 
 
 

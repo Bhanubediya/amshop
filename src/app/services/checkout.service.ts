@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { iCustomer } from '../icustomer';
 
 
@@ -9,30 +8,33 @@ import { iCustomer } from '../icustomer';
   providedIn: 'root'
 })
 export class CheckoutService {
+  
+ 
 
   constructor(private httpclient:HttpClient) { }
-  getAllCustomers():Observable<iCustomer[]>{
-    return this.httpclient.get<iCustomer[]>("https://localhost:44386/api/BillingDetails",
+  getAllCustomers(){
+    return this.httpclient.get<iCustomer[]>("https://localhost:5001/api/BillingDetails",
     {
-      headers:{"Access-Control-Allow-Origin":"*"}
+       headers : {"Access-Control-Allow-Origin":"*"}
     });
-    
-  }
 
-  
-  addCustomer(Data : iCustomer)
+  }
+  addCustomer(data : iCustomer)
   {
-    this.httpclient.post<iCustomer>("https://localhost:44386/api/BillingDetails",Data,{
+    this.httpclient.post<iCustomer>("https://localhost:5001/api/BillingDetails",data,{
       headers : {
         "Access-Control-Allow-Origin" : "*"
        
       }
-
-    }).subscribe(result => console.log("Done"));
+      
+    }).subscribe(data=>{console.log("Done")});
+   
   }
 
+  
 
 
+  
 
 
 
